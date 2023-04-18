@@ -6,9 +6,8 @@ from constraint import Problem, AllDifferentConstraint
 
 def solve():
     problem = Problem()
-    for i in range(1, 5):
-        problem.addVariable("name%s" % i, ["Maier", "Huber", "Müller", "Schmid"])
-        problem.addVariable("subjects%d" % i, ["deutsch", "englisch", "mathe", "physik"])
+    problem.addVariables(["Maier", "Huber", "Müller", "Schmid"], range(1, 5))
+    problem.addVariables(["deutsch", "englisch", "mathe", "physik"], range(1, 5))
 
     problem.addConstraint(
         AllDifferentConstraint(), ["name%d" % i for i in range(1, 5)]
@@ -17,53 +16,60 @@ def solve():
         AllDifferentConstraint(), ["subject%d" % i for i in range(1, 5)]
     )
 
-    for i in range(1, 5):
 
-        # Hint 1 Done
-        if i == 4:
-            problem.addConstraint(
-                lambda name: name != "Maier",
-                ("name%d" % i),
-            )
 
-        # Hint 2
+    # Hint 1 Done
+
+    problem.addConstraint(
+        lambda name: name != "Maier",
+    )
+
+    # Hint 2
+    problem.addConstraint(
+        lambda name, subject: name != "Maier" or subject == "deutsch", (f"name{i}", f"subject{i}")
+        #lambda name, subject: name != "Maier" or subject == "deutsch",
+        #("name%d" % i, "subject%d" % i)
+    )
+
+    # Hint 3
+    if 1 > i < 4:
         problem.addConstraint(
-            lambda name, subject: name != "Maier" or subject == "deutsch",
-            ("name%d" %i, "room%d" % i),
+            lambda namea, nameb, namec:
+            namea != "Schmid" or (nameb != "Müller" and namec != "Müller"),
+            ("name%d" % i, "name%d" % (i-1), "name%d" % (i+1)),
+        )
+    elif i == 1:
+        problem.addConstraint(
+            lambda namea, nameb:
+            namea != "Schmid" or nameb != "Müller",
+            ("name%d" % i, "name%d" % (i+1)),
+        )
+    else :
+        problem.addConstraint(
+            lambda namea, nameb:
+            namea != "Schmid" or nameb != "Müller",
+            ("name%d" % i, "name%d" % (i-1)),
         )
 
-        # Hint 3
-        if 1 > i < 4:
-            problem.addConstraint(
-                lambda namea, nameb, namec:
-                namea != "Schmid" or (nameb != "Müller" and namec != "Müller"),
-                ("namea%d" % i, "nameb%d" % (i-1), "namec%d" % (i+1)),
-            )
+    # Hint 4
+    problem.addConstraint(
+        lambda name, subject: name != "Huber" or subject == "Mathe",
+        ("name%d" % i, "subject%d" % i),
+    )
 
-        # Hint 4
+    # Hint 5
+    if i == 4:
         problem.addConstraint(
-            lambda name, subject: name != "Huber" or subject == "Mathe",
-            ("name%d" % i, "subject%d" % i),
+            lambda subject: subject == "physik",
+            ("subject%d" % i),
         )
 
-        # Hint 5
-        if i == 4:
-            problem.addConstraint(
-                lambda subject: subject == "physik",
-                ("subject%d" % i),
-            )
-        else:
-            problem.addConstraint(
-                lambda subject: subject != "physik",
-                ("subject%d" % i),
-            )
-
-        # Hint6
-        if i == 1:
-            problem.addConstraint(
-                lambda subjecta, subjectb: subjecta != "deutsch" and subjectb != "englisch",
-                ("subject%d" % i, "subject%d" % i),
-            )
+    # Hint6
+    if i == 1:
+        problem.addConstraint(
+            lambda subjecta, subjectb: subjecta != "deutsch" and subjectb != "englisch",
+            ("subject%d" % i, "subject%d" % i),
+        )
 
     solutions = problem.getSolutions()
     return solutions
@@ -71,7 +77,7 @@ def solve():
 
 def showSolution(solution):
     for i in range(1, 5):
-        print("hmm %d" % i)
+        #print("room %d" % i)
         print("--------")
         print("subject: %s" % solution["subject%d" % i])
         print("name: %s" % solution["name%d" % i])
