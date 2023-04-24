@@ -6,7 +6,7 @@ from enum import Enum
 # Check http://www.csc.fi/oppaat/f95/python/talot.py
 
 class Land(Enum):
-    BW = "Baden-Württember"
+    BW = "Baden-Württemberg"
     BAY = "Bayern"
     SARL = "Saarland"
     RHPF = "Rheinland-Pfalz"
