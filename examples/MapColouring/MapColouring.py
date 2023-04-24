@@ -21,6 +21,35 @@ def solve():
         lambda b1,b2,b3,b4,b5: b1 not in[b2,b3,b4,b5], ("BAY","BW","HES","THU","SAX")
     )
 
+    #NS
+    problem.addConstraint(
+        lambda b1,b2,b3,b4,b5,b6,b7,b8,b9,b10: b1 not in[b2,b3,b4,b5,b6,b7,b8,b9,b10], ("NS","NRW","BREM","HAM","SLH","MVP","BRAND","SAA","THU","HES")
+    )
+    #BER
+    problem.addConstraint(
+        lambda b1,b2: b1 not in[b2], ("BER","BRAND")
+    )
+    #BRAND
+    problem.addConstraint(
+        lambda b1,b2,b3,b4,b5,b6: b1 not in[b2,b3,b4,b5,b6], ("BRAND","MVP","NS","SAA","SAX","BER")
+    )
+    #BREM
+    problem.addConstraint(
+        lambda b1,b2,b3,b4,b5: b1 not in[b2,b3,b4,b5], ("BREM","NS")
+    )
+    #HAM
+    problem.addConstraint(
+        lambda b1,b2,b3: b1 not in[b2,b3], ("HAM","SLH","NS")
+    )
+    #SLH
+    problem.addConstraint(
+        lambda b1,b2,b3,b4: b1 not in[b2,b3,b4], ("SLH","HAM","NS","MVP")
+    )
+    #MVP
+    problem.addConstraint(
+        lambda b1,b2,b3,b4: b1 not in[b2,b3,b4], ("MVP","BRAND","NS","SLH")
+    )
+
 
     solutions = problem.getSolutions()
     return solutions
