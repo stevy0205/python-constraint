@@ -30,6 +30,8 @@ def solve():
 
     )
 
+    solutions = problem.getSolutions()
+    return solutions
 
 def main():
     solutions = solve()
