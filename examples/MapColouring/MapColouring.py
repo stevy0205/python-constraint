@@ -1,5 +1,5 @@
 
-from constraint import Problem, AllDifferentConstraint
+from constraint import Problem
 from enum import Enum
 
 
@@ -118,8 +118,8 @@ def solve():
 
 
 def showSolution(solution):
-    for i in range(1,5):
-        print("Room %d:" % i)
+    for i in range(1,4):
+        print("Farbe %d:" % i)
         print("")
 
 
