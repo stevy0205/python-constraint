@@ -48,6 +48,7 @@ def compute_value(width, height):
             print(pos)
             a_list.append(tuple(pos))
 
+
     for x in range(1, (9 - height)):
         pos[0] = x
         pos[2] = (x + height - 1)
