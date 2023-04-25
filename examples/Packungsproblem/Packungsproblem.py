@@ -7,58 +7,58 @@ def solve():
     problem = Problem()
 
     rectangles = [
-        {'w': 6, 'h': 4},
-        {'w': 8, 'h': 1},
-        {'w': 4, 'h': 1},
-        {'w': 5, 'h': 2},
-        {'w': 2, 'h': 2},
-        {'w': 3, 'h': 2},
+        (6, 4),
+        (8, 1),
+        (4, 1),
+        (5, 2),
+        (2, 2),
+        (3, 2),
     ]
 
     container_width = 7
     container_height = 8
 
-    # Add Variables
-    problem.addVariable(rectangles[1], [(x, y) for x in range(1, 3) for y in range(1, 6)])
-    problem.addVariable(rectangles[2], [(x, y) for x in range(1, 8) for y in range(1, 1)]) #vertikal
-    problem.addVariable(rectangles[3], [(x, y) for x in range(1, 5) for y in range(1, 9)])
-    problem.addVariable(rectangles[4], [(x, y) for x in range(1, 4) for y in range(1, 8)])
-    problem.addVariable(rectangles[5], [(x, y) for x in range(1, 7) for y in range(1, 8)])
-    problem.addVariable(rectangles[6], [(x, y) for x in range(1, 6) for y in range(1, 8)])
+    j = 1
+    for sizes in rectangles:
 
-    problem.addVariable(rectangles[1], [(x, y) for x in range(1, 5) for y in range(1, 4)])
-    problem.addVariable(rectangles[3], [(x, y) for x in range(1, 8) for y in range(1, 6)])
-    problem.addVariable(rectangles[4], [(x, y) for x in range(1, 7) for y in range(1, 5)])
-    problem.addVariable(rectangles[6], [(x, y) for x in range(1, 7) for y in range(1, 7)])
+        rect = compute_value(sizes[0], sizes[1])
+        i = 1
+        for comb in rect:
+            print("j: " + str(j) + " i: " + str(i))
+            problem.addVariable("r" + str(j) + "." + str(i), comb)
+            i = i + 1
 
+        j = j + 1
     # Add Constraints
-
-    problem.addConstraint(
-        lambda r1, r2: r1[0]+3 not in[r2[0]+3], (rectangles[1], rectangles[2])
-    )
-
-    def compute_value(width, height):
-        positions : list[tuple]
-        pos = array[3]
-        for x in range(1, (10-height)):
-            pos[0] = x
-            pos[2] = (x + width - 1)
-            for y in range(1, (9 - width)):
-                pos[1] = y
-                pos[3] = (y + height - 1)
-                positions.append(pos)
-        return positions
-
-
-
-
-
-
-
 
 
     solutions = problem.getSolutions()
     return solutions
+
+
+def compute_value(width, height):
+    a_list = []
+    pos = [0, 1, 2, 3]
+    for x in range(1, (9 - width)):
+        pos[0] = x
+        pos[2] = (x + width - 1)
+        for y in range(1, (10 - height)):
+            pos[1] = y
+            pos[3] = (y + height - 1)
+            print(pos)
+            a_list.append(tuple(pos))
+
+    for x in range(1, (9 - height)):
+        pos[0] = x
+        pos[2] = (x + height - 1)
+        for y in range(1, (10 - width)):
+            pos[1] = y
+            pos[3] = (y + width - 1)
+            a_list.append(tuple(pos))
+
+    print(a_list)
+    return a_list
+
 
 def main():
     solutions = solve()
