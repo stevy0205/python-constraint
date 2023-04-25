@@ -17,17 +17,21 @@ def solve():
     container_height = 8
 
     # Add Variables
-    problem.addVariable(rectangles[1], {2, 5})
-    problem.addVariable(rectangles[2], {0, 8})
-    problem.addVariable(rectangles[3], {4, 8})
-    problem.addVariable(rectangles[4], {3, 7})
-    problem.addVariable(rectangles[5], {6, 7})
-    problem.addVariable(rectangles[6], {5, 7})
+    problem.addVariable(rectangles[1], [(x, y) for x in range(1, 3) for y in range(1, 6)])
+    problem.addVariable(rectangles[2], [(x, y) for x in range(1, 8) for y in range(1, 1)]) #vertikal
+    problem.addVariable(rectangles[3], [(x, y) for x in range(1, 5) for y in range(1, 9)])
+    problem.addVariable(rectangles[4], [(x, y) for x in range(1, 4) for y in range(1, 8)])
+    problem.addVariable(rectangles[5], [(x, y) for x in range(1, 7) for y in range(1, 8)])
+    problem.addVariable(rectangles[6], [(x, y) for x in range(1, 6) for y in range(1, 8)])
+
+    problem.addVariable(rectangles[1], [(x, y) for x in range(1, 5) for y in range(1, 4)])
+    problem.addVariable(rectangles[3], [(x, y) for x in range(1, 8) for y in range(1, 6)])
+    problem.addVariable(rectangles[4], [(x, y) for x in range(1, 7) for y in range(1, 5)])
+    problem.addVariable(rectangles[6], [(x, y) for x in range(1, 7) for y in range(1, 7)])
 
     # Add Constraints
 
     problem.addConstraint(
-
     )
 
     solutions = problem.getSolutions()
