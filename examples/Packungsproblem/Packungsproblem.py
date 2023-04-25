@@ -1,3 +1,5 @@
+from array import array
+
 from constraint import Problem, AllDifferentConstraint, InSetConstraint
 
 
@@ -32,7 +34,28 @@ def solve():
     # Add Constraints
 
     problem.addConstraint(
+        lambda r1, r2: r1[0]+3 not in[r2[0]+3], (rectangles[1], rectangles[2])
     )
+
+    def compute_value(width, height):
+        positions : list[tuple]
+        pos = array[3]
+        for x in range(1, (10-height)):
+            pos[0] = x
+            pos[2] = (x + width - 1)
+            for y in range(1, (9 - width)):
+                pos[1] = y
+                pos[3] = (y + height - 1)
+                positions.append(pos)
+        return positions
+
+
+
+
+
+
+
+
 
     solutions = problem.getSolutions()
     return solutions
